@@ -1,36 +1,88 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>The Cali by Sarimoko</title>
-<meta name="author" content="Sarimoko by Travis Reames">
-<meta name="description" content="A landing page to redirect people to Sarimoko's Discord server!">
-<meta name="keywords" content="sarimoko, sari, moko, sariboto, boto, cord, discord">
-<link rel="icon" 
-      type="image/png" 
-      href="https://en.gravatar.com/userimage/208570096/d7e3f1a8a1358a94a6a45ada4e2d7d51.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style type="text/css">
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarimoko — Travis Gene Reames</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: radial-gradient(circle at top, #1b1d2b, #0a0a0f);
+      font-family: 'Cinzel', serif;
+    }
+    .card-frame {
+      background: linear-gradient(145deg, #d4af37, #a67c00);
+      border: 4px solid #3a2c00;
+      border-radius: 1rem;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    }
+    .card-inner {
+      background: #fffef9;
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .ability-box {
+      border: 2px solid #e5c100;
+      border-radius: 0.5rem;
+      background: #fff8e7;
+    }
+  </style>
 </head>
-<body>
-    <!-- Namebar + Elements -->
-    <div class="namebar" id="namebar">
-        <div class="irlname" id="irlname">
-            <p>Sir Travis of Reames</p>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+  <div class="card-frame max-w-md w-full">
+    <div class="card-inner p-4">
+
+      <!-- Top Navbar / Name + Elements -->
+      <header class="flex justify-between items-center border-b-2 border-yellow-600 pb-2">
+        <h1 class="text-2xl font-bold text-yellow-800">Sarimoko</h1>
+        <div class="flex gap-2">
+          <span class="px-2 py-1 bg-yellow-300 rounded text-sm font-semibold text-yellow-900">⚡ Electric</span>
+          <span class="px-2 py-1 bg-blue-300 rounded text-sm font-semibold text-blue-900">💧 Mystic</span>
         </div>
-        <div class="elementals" id="elementals">
-            <!-- Maybe mouseover for social media think over for responsive -->
+      </header>
+
+      <!-- Card Art -->
+      <section class="my-4">
+        <img src="https://images.unsplash.com/photo-1598387993441-5a3ddf1c5c4b?auto=format&fit=crop&w=800&q=80"
+             alt="Sarimoko Creature Art"
+             class="rounded-lg border-2 border-yellow-700 w-full object-cover shadow-lg">
+      </section>
+
+      <!-- Creature Type / Subtitle -->
+      <h2 class="text-center text-lg italic text-gray-600 mb-2">Digital Samurai • Legendary Entity</h2>
+
+      <!-- Abilities / Attacks -->
+      <section class="space-y-3">
+        <div class="ability-box p-3">
+          <h3 class="font-bold text-lg text-yellow-800">Katana Slash ⚔️</h3>
+          <p class="text-sm text-gray-700">Unleash a precise digital strike that cuts through noise and distortion. Deals double to unfocused energies.</p>
         </div>
+
+        <div class="ability-box p-3">
+          <h3 class="font-bold text-lg text-yellow-800">Code Infusion 💻</h3>
+          <p class="text-sm text-gray-700">Transforms logic into light — enhances your network presence with amplified clarity and design precision.</p>
+        </div>
+
+        <div class="ability-box p-3">
+          <h3 class="font-bold text-lg text-yellow-800">Echo Resilience 🔮</h3>
+          <p class="text-sm text-gray-700">Absorbs digital feedback and converts chaos into growth. Recovers lost bandwidth or inspiration.</p>
+        </div>
+      </section>
+
+      <!-- Description -->
+      <section class="mt-4 text-center text-sm text-gray-600 italic">
+        “Forged in silence, sharpened through connection — Sarimoko strikes where code and creativity collide.”
+      </section>
+
+      <!-- Bottom Bar / Weaknesses + Trademark -->
+      <footer class="mt-4 border-t-2 border-yellow-600 pt-2 flex justify-between text-xs text-gray-700">
+        <span>Weakness: ⚔️ Doubt • 🌀 Burnout</span>
+        <span>© 2025 Sarimoko™</span>
+      </footer>
+
     </div>
-    <!-- Card Artwork -->
-    <div class="cardart" id="cardart"></div>
-    <!-- Title Namebar -->
-    <div class="title" id="title">
-        <p>Content Creator at Sarimoko Productions</p>
-    </div>
-    <!-- Skills aka Projects & Subdomains -->
-    <script>
-	</script>
+  </div>
+
 </body>
 </html>
