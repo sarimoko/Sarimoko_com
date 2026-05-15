@@ -1,463 +1,756 @@
-[slides]
+<!--
+FIXES:
+- Removed giant bottom gap after footer
+- Removed excessive spacing under skills
+- Added filler/project abilities
+- Made the page feel more like one continuous MTG card
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarimoko Masterpiece - V2</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-/* 1. THE SETUP */
-* {
-  box-sizing: border-box;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Sarimoko, Psychedelic Sage</title>
+<!--
+ADD THIS INSIDE <head>
+(above your <style>)
+-->
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-body {
-  background-color: #0f0f0f;
-  display: grid;
-  gap: 30px;
-  grid-template-columns: 1fr;
-  margin: 0;
-  min-height: 100vh;
-  padding: 40px 0;
-  place-items: center;
+html{
+  scroll-behavior:smooth;
 }
 
-.slide-container {
-  align-items: center;
-  background-color: #171314;
-  border: 10px solid #d4af37; /* Mythic Gold */
-  border-radius: 20px;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9);
-  display: flex;
-  flex-direction: column;
-  font-family: 'Inter', sans-serif;
-  height: 720px;
-  justify-content: center;
-  overflow: hidden;
-  padding: 60px;
-  position: relative;
-  width: 1280px;
+body{
+  background:#070503;
+  font-family:Georgia, serif;
+  overflow-x:hidden;
+}
+/* Fix URL's */
+a{
+  text-decoration:none;
+}
+	
+/* =========================
+   CARD WRAPPER
+========================= */
+
+.mtg-card{
+  width:min(92vw, 920px);
+
+  margin:30px auto;
+
+  background:
+    linear-gradient(
+      145deg,
+      #c8ae72 0%,
+      #f2dfb0 18%,
+      #b48a4d 40%,
+      #e7d0a0 58%,
+      #8d6232 100%
+    );
+
+  border-radius:36px;
+
+  padding:16px;
+
+  box-shadow:
+    0 0 0 4px #2b1908,
+    0 0 0 8px #7b562c,
+    0 40px 100px rgba(0,0,0,.7);
 }
 
-/* Background Texture */
-.slide-container::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
-  z-index: 0;
+.card-inner{
+  overflow:hidden;
+  border-radius:26px;
+  border:4px solid #2d1a08;
+  background:#ead7aa;
 }
 
-.slide-container > * {
-  position: relative;
-  z-index: 2;
+/* =========================
+   TOP BAR
+========================= */
+
+.name-bar{
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  height:88px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 28px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #f5e7c3,
+      #c89b5b
+    );
+
+  border-bottom:4px solid #311d0a;
 }
 
-/* 2. TYPOGRAPHY */
-h1, h2, h3 {
-  font-family: 'Crimson Pro', serif;
-  font-weight: 700;
-  color: #e0d8cb;
-  margin: 0;
+.card-name{
+  font-size:clamp(1.5rem,3vw,2.5rem);
+  font-weight:bold;
+  color:#221408;
 }
 
-.slide-title {
-  font-size: 42px;
-  font-style: italic;
-  margin-bottom: 30px;
-  text-align: left;
-  width: 100%;
-  border-bottom: 2px solid #d4af37;
-  padding-bottom: 10px;
+.mana-group{
+  display:flex;
+  gap:10px;
 }
 
-p, li, td, th {
-  font-size: 18px;
-  line-height: 1.5;
-  color: #e0d8cb;
+.mana{
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:bold;
+
+  background:#171717;
+  color:white;
+
+  border:2px solid #dbc287;
 }
 
-/* 3. CARD ELEMENTS */
-.nameplate {
-  position: absolute;
-  top: 35px; left: 35px; right: 35px;
-  background: linear-gradient(to right, #d4af37, #f7e0a1, #d4af37);
-  border: 3px solid #111;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  height:100vh;
+  overflow:hidden;
 }
 
-.nameplate h2 {
-  color: #111;
-  font-size: 32px;
-  font-style: italic;
+.hero-bg{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,.15),
+      rgba(0,0,0,.45)
+    ),
+    url("img/mtg.gif");
+
+  background-size:cover;
+  background-position:center;
 }
 
-.social-nav {
-  display: flex;
-  gap: 10px;
+.hero-content{
+  position:relative;
+  z-index:5;
+
+  height:100%;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  color:white;
+
+  padding:40px;
 }
 
-.mana-icon {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  border: 2px solid #111;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  box-shadow: 1px 2px 2px rgba(0,0,0,0.3);
+.hero h1{
+  font-size:clamp(3rem,8vw,6rem);
+  line-height:.95;
+
+  text-shadow:
+    0 10px 25px rgba(0,0,0,.8);
 }
 
-.mana-icon.fb { background: #1877f2; color: #fff; }
-.mana-icon.ig { background: #e4405f; color: #fff; }
-.mana-icon.tt { background: #000; color: #fff; }
-.mana-icon.yt { background: #FF0000; color: #fff; }
-.mana-icon.star { background: #fdfdfd; color: #111; position: relative; }
-.mana-icon.star:hover::after {
-  content: 'YT / TTV';
-  position: absolute;
-  top: 40px; right: 0;
-  background: #111; color: #fff;
-  font-size: 10px; padding: 4px 8px; border-radius: 4px;
+.hero-sub{
+  margin-top:25px;
+
+  padding:14px 24px;
+
+  border-radius:999px;
+
+  background:rgba(0,0,0,.35);
+
+  backdrop-filter:blur(10px);
+
+  border:1px solid rgba(255,255,255,.2);
+
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  font-size:.95rem;
 }
 
-.pt-box {
-  position: absolute;
-  bottom: 30px; right: 30px;
-  background: #e0d8cb;
-  border: 4px solid #111;
-  border-radius: 10px;
-  padding: 10px 20px;
-  font-family: 'Crimson Pro', serif;
-  font-size: 40px;
-  font-weight: 700;
-  color: #111;
+.scroll{
+  position:absolute;
+  bottom:30px;
+
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-size:.85rem;
+
+  animation:bounce 2s infinite;
 }
 
-.holo-stamp {
-  width: 50px; height: 30px;
-  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 25px; left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.7;
-  border: 1px solid #fff;
+/* =========================
+   TYPE LINE
+========================= */
+
+.type-line{
+  padding:18px 26px;
+
+  font-size:1.7rem;
+  font-weight:bold;
+
+  color:#231509;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #ead8b0,
+      #c89c5e
+    );
+
+  border-top:4px solid #301b09;
+  border-bottom:4px solid #301b09;
 }
 
-/* 4. LAYOUTS */
-.content-area {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  width: 100%;
+/* =========================
+   RULES / PROJECTS
+========================= */
+
+.rules{
+  padding:70px 40px 50px;
+
+  background:
+    radial-gradient(circle at top, rgba(160,50,255,.08), transparent 25%),
+    #ecddb8;
+
+  position:relative;
 }
 
-.two-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  width: 100%;
+.rules::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background-image:
+    radial-gradient(rgba(0,0,0,.04) 1px, transparent 1px);
+
+  background-size:22px 22px;
+
+  pointer-events:none;
 }
 
-.image-wrapper {
-  border: 2px solid #d4af37;
-  border-radius: 12px;
-  overflow: hidden;
-  height: 380px;
+.rules-wrap{
+  position:relative;
+  z-index:2;
 }
 
-.image-wrapper img {
-  width: 100%; height: 100%;
-  object-fit: cover;
+.keyword{
+  font-size:2.6rem;
+  font-weight:bold;
+  color:#24160b;
+
+  margin-bottom:45px;
 }
 
-.tiled-content {
-  display: flex;
-  gap: 20px;
+.ability{
+  margin-bottom:38px;
+
+  font-size:1.7rem;
+  line-height:1.6;
+
+  color:#24160b;
 }
 
-.tile {
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid #d4af37;
-  border-radius: 12px;
-  padding: 25px;
-  flex: 1;
+/* =================================
+   PROJECT CARDS W/ ICONS
+================================= */
+
+.project{
+  margin-top:45px;
+
+  padding:28px;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,.35),
+      rgba(255,255,255,.12)
+    );
+
+  border:2px solid rgba(70,40,15,.25);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.4),
+    0 10px 25px rgba(0,0,0,.08);
+
+  display:flex;
+  gap:24px;
+  align-items:flex-start;
 }
 
-.tile .icon {
-  font-size: 32px;
-  color: #d4af37;
-  margin-bottom: 15px;
+.project-icon{
+  min-width:72px;
+  width:72px;
+  height:72px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #2c1a3a,
+      #16101f
+    );
+
+  border:2px solid rgba(255,255,255,.15);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.1),
+    0 5px 12px rgba(0,0,0,.25);
+
+  color:#f2d487;
+
+  font-size:1.8rem;
 }
 
-/* Charts */
-.chart-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
+.project-content{
+  flex:1;
 }
 
-.bar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.project-title{
+  font-size:2rem;
+  font-weight:bold;
+
+  margin-bottom:14px;
+
+  color:#2a1709;
 }
 
-.bar .label { width: 180px; font-weight: 700; text-align: right; }
-.bar .bar-inner { flex-grow: 1; height: 35px; background: rgba(255,255,255,0.1); border-radius: 10px; }
-.bar .bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(to right, #d4af37, #f7e0a1); }
-
-/* Bleed Image Right Layout Override */
-.slide-container.bleed-image-layout {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  padding: 0;
-}
-.bleed-image-side {
-  width: 100%; height: 720px;
-  object-fit: cover;
-}
-.bleed-text-side {
-  padding: 80px 40px 40px 60px;
+.project-text{
+  font-size:1.25rem;
+  line-height:1.7;
+  color:#382113;
 }
 
-/* Section Title Layout */
-.section-title-layout {
-  text-align: center;
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .project{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .project-icon{
+    width:58px;
+    height:58px;
+    min-width:58px;
+
+    font-size:1.4rem;
+  }
 }
-.section-title-layout hr {
-  width: 200px; height: 4px; background: #d4af37; border: none; margin: 30px auto;
+
+/* FLAVOR */
+
+.flavor{
+  margin-top:70px;
+
+  text-align:center;
+
+  font-style:italic;
+
+  font-size:2rem;
+
+  color:#5a3212;
 }
-    </style>
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  padding:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #d7b279,
+      #986634
+    );
+
+  border-top:4px solid #311d0a;
+}
+
+.footer-left{
+  color:#24160b;
+  font-size:1.22rem;
+}
+
+.pt{
+  width:140px;
+  height:90px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:3rem;
+  font-weight:bold;
+
+  color:#231509;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #f7e7c2,
+      #c79857
+    );
+
+  border:4px solid #2c1808;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes bounce{
+
+  0%,20%,50%,80%,100%{
+    transform:translateY(0);
+  }
+
+  40%{
+    transform:translateY(-10px);
+  }
+
+  60%{
+    transform:translateY(-5px);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+  .mtg-card{
+    width:100%;
+    margin:0;
+    border-radius:0;
+  }
+
+  .card-inner{
+    border-radius:0;
+  }
+
+  .name-bar{
+    padding:0 14px;
+    height:72px;
+  }
+
+  .mana{
+    width:34px;
+    height:34px;
+    font-size:.9rem;
+  }
+
+  .rules{
+    padding:45px 20px 40px;
+  }
+
+  .ability{
+    font-size:1.2rem;
+  }
+
+  .project-title{
+    font-size:1.5rem;
+  }
+
+  .project-text{
+    font-size:1rem;
+  }
+
+  .footer{
+    flex-direction:column;
+    gap:20px;
+  }
+
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="slide-container" id="slide1" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/img/banner.png'); background-size: cover; background-position: center;">
-    <div class="nameplate">
-        <h2>Sarimoko, Rock Sage</h2>
-        <div class="social-nav">
-            <div class="mana-icon fb"><i class="fa-brands fa-facebook-f"></i></div>
-            <div class="mana-icon ig"><i class="fa-brands fa-instagram"></i></div>
-            <div class="mana-icon tt"><i class="fa-brands fa-tiktok"></i></div>
-            <div class="mana-icon yt"><i class="fa-brands fa-youtube"></i></div>
-            <div class="mana-icon star"><i class="fa-solid fa-star"></i></div>
+<div class="mtg-card">
+
+  <div class="card-inner">
+
+    <!-- TOP BAR -->
+
+    <div class="name-bar">
+
+      <div class="card-name">
+        Sarimoko, Psychedelic Sage
+      </div>
+
+      <div class="mana-group">
+        <div class="mana">2</div>
+        <!--<div class="mana">🟢</div>
+        <div class="mana">🔵</div>-->
+        <div class="mana">🔴</div>
+        <div class="mana">⚪️</div>
+        <div class="mana">⚫️</div>
+      </div>
+
+    </div>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-bg"></div>
+
+      <div class="hero-content">
+
+        <h1>
+          サリモコ
+        </h1>
+
+        <div class="hero-sub">
+          sa·ri·mo·ko <br> sawr-ee-moh-koh<br>
+			noun | A dude from California.
         </div>
-    </div>
-    <div class="content-area" style="text-align: center;">
-        <h1 style="font-size: 80px;">The Rock Sage Returns</h1>
-        <p style="font-size: 32px; font-style: italic; color: #d4af37;">Legendary Creature — Bard Wizard</p>
-    </div>
-    <div class="pt-box">2 / 3</div>
-</div>
 
-<div class="slide-container" id="slide2">
-    <div class="section-title-layout">
-        <h2 style="font-size: 64px;">Unveiling the Legend</h2>
-        <hr>
-        <p style="font-size: 24px;">An exploration of Sarimoko's multi-layered architecture and creative spells.</p>
-    </div>
-    <div class="holo-stamp"></div>
-</div>
-
-<div class="slide-container" id="slide3">
-    <h2 class="slide-title">Spell: Boto AI Evolution</h2>
-    <div class="content-area">
-        <div class="two-column">
-            <div>
-                <h3>Custom Neural Engines</h3>
-                <p>Deploy advanced LLM instances with a single tap. Boto constructs non-hallucinatory pathways for complex data retrieval.</p>
-                <ul>
-                    <li>Dynamic Parameter Scaling</li>
-                    <li>Hexproof from Data Leaks</li>
-                    <li>Real-time Oracle Feedback</li>
-                </ul>
-            </div>
-            <div class="image-wrapper">
-                <img src="/img/sariboto.gif" alt="Tech Runes">
-            </div>
+        <div class="scroll">
+          Scroll to Reveal Abilities ↓
         </div>
-    </div>
-    <div class="holo-stamp"></div>
-</div>
 
-<div class="slide-container" id="slide4">
-    <h2 class="slide-title">Passive Abilities</h2>
-    <div class="content-area">
-        <div class="tiled-content">
-            <div class="tile">
-                <div class="icon"><i class="fa-solid fa-code"></i></div>
-                <h3>Git Architecture</h3>
-                <p>Self-hosted repositories ensure total sovereignty. Search your deck for a source file and put it directly into play.</p>
-            </div>
-            <div class="tile">
-                <div class="icon"><i class="fa-solid fa-shield-virus"></i></div>
-                <h3>The Honey-pot</h3>
-                <p>Unauthorized intrusion triggers the Rabbit Hole. Adversaries lose 5 life and exile their temporary files.</p>
-            </div>
-            <div class="tile">
-                <div class="icon"><i class="fa-solid fa-user-group"></i></div>
-                <h3>Dude Socials</h3>
-                <p>Counter target mainstream algorithm. Status updates gain Haste and reach target audiences across the multiverse.</p>
-            </div>
+      </div>
+
+    </section>
+
+    <!-- TYPE LINE -->
+
+    <div class="type-line">
+      Legendary Creature — Human Bard Wizard
+    </div>
+
+    <!-- RULES -->
+
+    <section class="rules">
+
+      <div class="rules-wrap">
+
+        <div class="keyword">
+          Hexproof
         </div>
-    </div>
-    <div class="pt-box">3 / 4</div>
-</div>
 
-<div class="slide-container bleed-image-layout" id="slide5">
-    <div class="bleed-text-side">
-        <h2 class="slide-title">Psychedelic Sage</h2>
-        <h3 style="color: #d4af37;">Transcending the Code</h3>
-        <p>In the second phase of development, Sarimoko taps into the ethereal realms of creativity. Here, logic meets the abstract.</p>
-        <p>This legendary state provides "Flash," allowing you to cast project updates at any time, catching competitors off-guard.</p>
-    </div>
-    <img class="bleed-image-side" src="/img/sage.gif" alt="Wizard Sage">
-</div>
-
-<div class="slide-container" id="slide6">
-    <h2 class="slide-title">System Mana Stats</h2>
-    <div class="content-area">
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr style="background: #d4af37; color: #111;">
-                    <th style="padding: 15px;">Project Component</th>
-                    <th>Resource Type</th>
-                    <th>Effect Level</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom: 1px solid rgba(212,175,55,0.3);">
-                    <td style="padding: 15px;">Boto Engine</td>
-                    <td>Artifact Mana</td>
-                    <td>Legendary</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(212,175,55,0.3);">
-                    <td style="padding: 15px;">Honey-pot Logic</td>
-                    <td>Dark Ritual</td>
-                    <td>Elite</td>
-                </tr>
-                <tr>
-                    <td style="padding: 15px;">Social Feed</td>
-                    <td>Wild Growth</td>
-                    <td>Global</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="pt-box">4 / 4</div>
-</div>
-
-<div class="slide-container" id="slide7">
-    <h2 class="slide-title">Mana Efficiency</h2>
-    <div class="content-area">
-        <div class="chart-container">
-            <div class="bar">
-                <div class="label">Boto AI</div>
-                <div class="bar-inner"><div class="bar-fill" style="width: 95%;"></div></div>
-            </div>
-            <div class="bar">
-                <div class="label">Self-Hosted Git</div>
-                <div class="bar-inner"><div class="bar-fill" style="width: 80%;"></div></div>
-            </div>
-            <div class="bar">
-                <div class="label">Honey-pot Security</div>
-                <div class="bar-inner"><div class="bar-fill" style="width: 88%;"></div></div>
-            </div>
+        <div class="ability">
+          Creatures you control are hexproof. (You cannot be targeted by enemy spells or abilities.)
         </div>
-    </div>
-    <div class="holo-stamp"></div>
-</div>
 
-<div class="slide-container" id="slide8">
-    <h2 class="slide-title">Growth of the Realm</h2>
-    <div class="content-area">
-        <svg viewBox="0 0 1000 400" style="width: 100%; height: 300px;">
-            <path d="M0,350 L200,300 L400,320 L600,150 L800,100 L1000,50 L1000,400 L0,400 Z" fill="rgba(212,175,55,0.2)" stroke="#d4af37" stroke-width="4"/>
-            <text x="0" y="380" fill="#e0d8cb">Q1</text>
-            <text x="500" y="380" fill="#e0d8cb">Q3</text>
-            <text x="950" y="380" fill="#e0d8cb">Q4</text>
-        </svg>
-        <p style="text-align: center; margin-top: 20px;">Projected user expansion following the "Mythic" update.</p>
-    </div>
-</div>
-
-<div class="slide-container" id="slide9">
-    <h2 class="slide-title">The Chronicle Timeline</h2>
-    <div class="content-area">
-        <div style="display: flex; justify-content: space-between; position: relative; width: 100%;">
-            <div style="height: 4px; background: #d4af37; width: 100%; position: absolute; top: 50%; z-index: 1;"></div>
-            <div style="z-index: 2; text-align: center;">
-                <div style="width: 20px; height: 20px; background: #fff; border-radius: 50%; margin: 0 auto 10px;"></div>
-                <h3>Alpha</h3>
-                <p>The Rock Sage</p>
-            </div>
-            <div style="z-index: 2; text-align: center;">
-                <div style="width: 20px; height: 20px; background: #fff; border-radius: 50%; margin: 0 auto 10px;"></div>
-                <h3>Beta</h3>
-                <p>The Psychedelic Sage</p>
-            </div>
-            <div style="z-index: 2; text-align: center;">
-                <div style="width: 20px; height: 20px; background: #fff; border-radius: 50%; margin: 0 auto 10px;"></div>
-                <h3>Launch</h3>
-                <p>The Masterpiece</p>
-            </div>
+        <div class="ability">
+          Whenever a non token creature you control attacks, you may pay 1 mana.
+			If you do, put 1/1 AI Robot creature token into play tapped &amp; attacking.
         </div>
-    </div>
+
+        <!-- PROJECTS -->
+<!-- =================================
+     PROJECTS SECTION UPDATED
+================================= -->
+
+<div class="project">
+	<!-- Icon -->
+	<a class="project-link" href="https://sariboto.com" target="_blank">
+  		<div class="project-icon">
+    		<i class="fa-solid fa-robot"></i>
+  		</div>
+	</a>
+	<!-- Content -->
+  	<div class="project-content">
+	<!-- Title -->
+	<a class="project-link" href="https://sariboto.com" target="_blank">
+	   		<div class="project-title">Boto</div>
+	  	</a>
+		<!-- Desc -->
+	<a class="project-link" href="https://sariboto.com" target="_blank">
+    		<div class="project-text">
+      		Trained &amp; tuned AI models focused on creative assistance,
+      		automation, streaming interaction, and experimental personalities.
+      		Modular agents designed for local deployment and future co-hosting.
+    		</div>
+		</a>
+  </div>
 </div>
 
-<div class="slide-container" id="slide10">
-    <div class="content-area" style="text-align: center;">
-        <blockquote style="font-size: 48px; font-family: 'Crimson Pro'; font-style: italic; line-height: 1.2;">
-            "We want rocks! We want rolls! The rhythm of the system is the only pulse that truly matters."
-        </blockquote>
-        <cite style="display: block; margin-top: 30px; font-size: 28px; color: #d4af37;">— Sarimoko, Rock Sage</cite>
+<div class="project">
+	<!-- Icon -->
+	<a class="project-link" href="https://git.sariboto.com" target="_blank">
+  	<div class="project-icon">
+    	<i class="fa-solid fa-code"></i>
+  	</div>
+	</a>
+	<!-- Content -->
+  <div class="project-content">
+	<!-- Title -->
+	<a class="project-link" href="https://git.sariboto.com" target="_blank">
+    <div class="project-title">
+      Code
     </div>
-    <div class="holo-stamp"></div>
-</div>
+	  </a>
 
-<div class="slide-container" id="slide11" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('http://googleusercontent.com/image_collection/image_retrieval/6286539902441664494'); background-size: cover;">
-    <div class="content-area" style="text-align: center;">
-        <h2 style="font-size: 72px;">Infinite Horizon</h2>
-        <p style="font-size: 28px; max-width: 800px; margin: 0 auto;">Beyond the binary code lies a cosmic masterpiece of potential. Sarimoko's vision extends into the far reaches of the digital nebula.</p>
+	<a class="project-link" href="https://git.sariboto.com" target="_blank">
+    <div class="project-text">
+      Git-powered archive of code, hacks, tools, automation scripts,
+      prototypes, Linux experiments, AI workflows, and digital utility
+      systems built under the Sarimoko ecosystem.
     </div>
-    <div class="pt-box">∞ / ∞</div>
+	  </a>
+  </div>
 </div>
+		  
+<div class="project">
+	<!-- Icon -->
+	<a class="project-link" href="https://show.sarimoko.com" target="_blank">
+  	<div class="project-icon">
+    	<i class="fa-solid fa-film"></i>
+  	</div>
+	</a>
+	<!-- Content -->
+  <div class="project-content">
+	<!-- Title -->
+	<a class="project-link" href="https://show.sarimoko.com" target="_blank">
+    <div class="project-title">
+      Show
+    </div>
+	  </a>
 
-<div class="slide-container" id="slide12">
-    <div class="nameplate">
-        <h2>Enter the Labyrinth</h2>
-        <div class="social-nav">
-            <div class="mana-icon fb"><i class="fa-brands fa-facebook-f"></i></div>
-            <div class="mana-icon ig"><i class="fa-brands fa-instagram"></i></div>
-            <div class="mana-icon tt"><i class="fa-brands fa-tiktok"></i></div>
-            <div class="mana-icon yt"><i class="fa-brands fa-youtube"></i></div>
-            <div class="mana-icon star"><i class="fa-solid fa-star"></i></div>
+	<a class="project-link" href="https://show.sarimoko.com" target="_blank">
+    <div class="project-text">
+		Unified live transmission split between the workshop and the stage: Twitch features the grit of design and real-time testing, while YouTube serves as the spectacle for high-production masterpieces.
+    </div>
+	  </a>
+  </div>
+</div>
+		  
+<!--
+<div class="project">
+
+  <div class="project-icon">
+    <i class="fa-solid fa-satellite-dish"></i>
+  </div>
+
+  <div class="project-content">
+
+    <div class="project-title">
+      Show
+    </div>
+
+    <div class="project-text">
+      Multimedia broadcast experiments combining livestreams,
+      music production, visual psychedelia, storytelling,
+      and interactive internet culture into a unified creator platform.
+    </div>
+
+  </div>
+
+</div>
+-->
+<!--
+<div class="project">
+
+  <div class="project-icon">
+    <i class="fa-solid fa-network-wired"></i>
+  </div>
+
+  <div class="project-content">
+
+    <div class="project-title">
+      Yoho
+    </div>
+
+    <div class="project-text">
+      Experimental network of darkweb tools, AI systems,
+      and digital identities designed to connect: creativity,
+      technology, and community into one evolving universe.
+    </div>
+
+  </div>
+
+</div>
+-->
+        <!-- FLAVOR -->
+
+        <div class="flavor">
+          “I see portals of possibility where others see reality.”
         </div>
-    </div>
-    <div class="content-area" style="text-align: center;">
-        <h1 style="color: #d4af37;">Questions for the Sage?</h1>
-        <p style="font-size: 24px; margin-top: 20px;">The architect is listening. Reach out across the social mana stream.</p>
-        <div style="margin-top: 50px;">
-            <p>sarimoko.com</p>
-            <p><a href="mailto:travis@sarimoko.com">travis@sarimoko.com</a></p>
-        </div>
-    </div>
-    <div class="holo-stamp"></div>
-</div>
 
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+      <div class="footer-left">
+        087/777 • &copy; <span id="year"></span> • Sarimoko • Travis Reames • <a href="mailto:travis@sarimoko.com">💌</a>
+      </div>
+
+      <div class="pt">
+        8 / 7
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
-
