@@ -1,292 +1,463 @@
-
+[slides]
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarimoko | Legendary Artifact</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:italic,wght@400;600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sarimoko Masterpiece - V2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --card-border: #171314;
-            --card-gold: #c3b070; /* Gold frame for legendary */
-            --card-bg: #e0d8cb;
-            --header-bg: linear-gradient(to bottom, #d1c1a1, #b5a483, #8e7a57);
-        }
+/* 1. THE SETUP */
+* {
+  box-sizing: border-box;
+}
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #000;
-            overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-        }
+body {
+  background-color: #0f0f0f;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px 0;
+  place-items: center;
+}
 
-        /* FULLSCREEN CARD ART BACKGROUND */
-        .art-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
-            z-index: -1;
-        }
+.slide-container {
+  align-items: center;
+  background-color: #171314;
+  border: 10px solid #d4af37; /* Mythic Gold */
+  border-radius: 20px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  width: 1280px;
+}
 
-        /* OVERLAY GRADIENT TO BLEND ART INTO TEXT BOX */
-        .art-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8) 100%);
-            z-index: 0;
-        }
+/* Background Texture */
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+  z-index: 0;
+}
 
-        /* STICKY NAMEPLATE AT TOP */
-        .nameplate {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            margin: 20px auto;
-            width: 92%;
-            max-width: 1200px;
-            padding: 12px 24px;
-            background: var(--header-bg);
-            border: 3px solid #111;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 2px 2px rgba(255,255,255,0.4);
-        }
+.slide-container > * {
+  position: relative;
+  z-index: 2;
+}
 
-        .nameplate h1 {
-            font-family: 'Crimson Pro', serif;
-            font-weight: 700;
-            font-style: italic;
-            font-size: 2rem;
-            color: #111;
-            text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.3);
-        }
+/* 2. TYPOGRAPHY */
+h1, h2, h3 {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 700;
+  color: #e0d8cb;
+  margin: 0;
+}
 
-        .mana-cost {
-            display: flex;
-            gap: 5px;
-        }
+.slide-title {
+  font-size: 42px;
+  font-style: italic;
+  margin-bottom: 30px;
+  text-align: left;
+  width: 100%;
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 10px;
+}
 
-        .mana-circle {
-            width: 30px;
-            height: 30px;
-            background: #ccc;
-            border-radius: 50%;
-            border: 2px solid #000;
-            box-shadow: 1px 2px 3px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
+p, li, td, th {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #e0d8cb;
+}
 
-        /* TYPE LINE (SCROLLS WITH CONTENT) */
-        .type-line {
-            width: 90%;
-            max-width: 1100px;
-            margin: 40vh auto 0 auto; /* Push down to show art */
-            padding: 8px 20px;
-            background: var(--header-bg);
-            border: 2px solid #000;
-            border-radius: 4px;
-            font-family: 'Crimson Pro', serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            position: relative;
-            z-index: 10;
-        }
+/* 3. CARD ELEMENTS */
+.nameplate {
+  position: absolute;
+  top: 35px; left: 35px; right: 35px;
+  background: linear-gradient(to right, #d4af37, #f7e0a1, #d4af37);
+  border: 3px solid #111;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
 
-        /* TEXT BOX AREA */
-        .text-box {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto 50px auto;
-            background: var(--card-bg);
-            border: 1px solid rgba(0,0,0,0.3);
-            min-height: 500px;
-            padding: 40px;
-            font-family: 'Crimson Pro', serif;
-            font-size: 1.4rem;
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-        }
+.nameplate h2 {
+  color: #111;
+  font-size: 32px;
+  font-style: italic;
+}
 
-        .ability-row {
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 20px;
-        }
+.social-nav {
+  display: flex;
+  gap: 10px;
+}
 
-        .ability-trigger {
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.2s;
-        }
+.mana-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 2px solid #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 1px 2px 2px rgba(0,0,0,0.3);
+}
 
-        .ability-trigger:hover {
-            transform: translateX(10px);
-        }
+.mana-icon.fb { background: #1877f2; color: #fff; }
+.mana-icon.ig { background: #e4405f; color: #fff; }
+.mana-icon.tt { background: #000; color: #fff; }
+.mana-icon.yt { background: #FF0000; color: #fff; }
+.mana-icon.star { background: #fdfdfd; color: #111; position: relative; }
+.mana-icon.star:hover::after {
+  content: 'YT / TTV';
+  position: absolute;
+  top: 40px; right: 0;
+  background: #111; color: #fff;
+  font-size: 10px; padding: 4px 8px; border-radius: 4px;
+}
 
-        .ability-content {
-            margin-top: 10px;
-            padding-left: 40px;
-            font-weight: 400;
-            display: none;
-        }
+.pt-box {
+  position: absolute;
+  bottom: 30px; right: 30px;
+  background: #e0d8cb;
+  border: 4px solid #111;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-family: 'Crimson Pro', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #111;
+}
 
-        .ability-row.active .ability-content {
-            display: block;
-        }
+.holo-stamp {
+  width: 50px; height: 30px;
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 25px; left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.7;
+  border: 1px solid #fff;
+}
 
-        .flavor-text {
-            margin-top: 50px;
-            font-style: italic;
-            border-top: 2px solid rgba(0,0,0,0.2);
-            padding-top: 20px;
-            color: #333;
-        }
+/* 4. LAYOUTS */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
 
-        /* FOOTER AREA */
-        .legal-footer {
-            width: 100%;
-            background: #000;
-            color: #999;
-            padding: 60px 20px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
-        }
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+}
 
-        .pt-box {
-            position: absolute;
-            bottom: -20px;
-            right: 40px;
-            background: var(--header-bg);
-            border: 3px solid #000;
-            padding: 10px 25px;
-            border-radius: 12px;
-            font-size: 2rem;
-            font-weight: 900;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-        }
+.image-wrapper {
+  border: 2px solid #d4af37;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 380px;
+}
 
-        .holo-stamp {
-            width: 60px;
-            height: 35px;
-            background: linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%);
-            border-radius: 50%;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0.6;
-            border: 1px solid white;
-        }
+.image-wrapper img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.tiled-content {
+  display: flex;
+  gap: 20px;
+}
+
+.tile {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid #d4af37;
+  border-radius: 12px;
+  padding: 25px;
+  flex: 1;
+}
+
+.tile .icon {
+  font-size: 32px;
+  color: #d4af37;
+  margin-bottom: 15px;
+}
+
+/* Charts */
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bar .label { width: 180px; font-weight: 700; text-align: right; }
+.bar .bar-inner { flex-grow: 1; height: 35px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+.bar .bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(to right, #d4af37, #f7e0a1); }
+
+/* Bleed Image Right Layout Override */
+.slide-container.bleed-image-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  padding: 0;
+}
+.bleed-image-side {
+  width: 100%; height: 720px;
+  object-fit: cover;
+}
+.bleed-text-side {
+  padding: 80px 40px 40px 60px;
+}
+
+/* Section Title Layout */
+.section-title-layout {
+  text-align: center;
+}
+.section-title-layout hr {
+  width: 200px; height: 4px; background: #d4af37; border: none; margin: 30px auto;
+}
     </style>
 </head>
 <body>
 
-    <!-- FULLSCREEN ART -->
-    <div class="art-background"></div>
-    <div class="art-overlay"></div>
-
-    <!-- THE NAMEPLATE (Menu) -->
-    <nav class="nameplate">
-        <h1>Sarimoko, The Infinite Architect</h1>
-        <div class="mana-cost">
-            <div class="mana-circle">7</div>
-            <div class="mana-circle" style="background:#2f5597; color:white">U</div>
-            <div class="mana-circle" style="background:#2e7d32; color:white">G</div>
-            <div class="mana-circle" style="background:#000; color:white">B</div>
+<div class="slide-container" id="slide1" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('http://googleusercontent.com/image_collection/image_retrieval/9579157181323071423'); background-size: cover; background-position: center;">
+    <div class="nameplate">
+        <h2>Sarimoko, Rock Sage</h2>
+        <div class="social-nav">
+            <a href="https://www.facebook.com/sarimoko.o"><div class="mana-icon fb"><i class="fa-brands fa-facebook-f"></i></div></a>
+            <a href="https://www.instagram.com/sari.moko/"><div class="mana-icon ig"><i class="fa-brands fa-instagram"></i></div></a>
+            <a href="https://www.tiktok.com/@sarimoko"><div class="mana-icon tt"><i class="fa-brands fa-tiktok"></i></div></a>
+            <a href="http://youtube.com/c/sarimoko"><div class="mana-icon yt"><i class="fa-brands fa-youtube"></i></div></a>
+            <div class="mana-icon star"><i class="fa-solid fa-star"></i></div>
         </div>
-    </nav>
-
-    <!-- CONTENT WRAPPER -->
-    <div class="relative">
-        
-        <div class="type-line">
-            Legendary Artifact — System Avatar
-        </div>
-
-        <main class="text-box">
-            
-            <!-- BOTO -->
-            <div class="ability-row" onclick="this.classList.toggle('active')">
-                <div class="ability-trigger">
-                    <span class="mana-circle">AI</span>
-                    <span>Boto — Custom AI Models</span>
-                </div>
-                <div class="ability-content">
-                    {T}: Create a X/X colorless Neural Network creature token where X is the number of parameters provided. It gains "This creature cannot be hallucinated."
-                </div>
-            </div>
-
-            <!-- CODE -->
-            <div class="ability-row" onclick="this.classList.toggle('active')">
-                <div class="ability-trigger">
-                    <span class="mana-circle">Git</span>
-                    <span>Code — Self-hosted Git</span>
-                </div>
-                <div class="ability-content">
-                    {3}, {T}: Counter target corporate dependency. Search your library for a repository card, put it onto the battlefield, then shuffle.
-                </div>
-            </div>
-
-            <!-- CULT -->
-            <div class="ability-row" onclick="this.classList.toggle('active')">
-                <div class="ability-trigger">
-                    <span class="mana-circle">💀</span>
-                    <span>Cult — The Honey-pot</span>
-                </div>
-                <div class="ability-content">
-                    When an unauthorized user enters the battlefield, they must follow the rabbit-hole. That player exiles their browser history and loses all credibility.
-                </div>
-            </div>
-
-            <!-- DUDE -->
-            <div class="ability-row" onclick="this.classList.toggle('active')">
-                <div class="ability-trigger">
-                    <span class="mana-circle">💬</span>
-                    <span>Dude — Social Media</span>
-                </div>
-                <div class="ability-content">
-                    Protection from "Main Character Syndrome." Whenever you post a thread, draw a card for each echo in the chamber.
-                </div>
-            </div>
-
-            <div class="flavor-text">
-                "The Soul of the Web has returned, not as a user, but as the foundation itself."
-            </div>
-
-            <div class="holo-stamp"></div>
-            
-            <div class="pt-box">10 / 10</div>
-        </main>
-
     </div>
+    <div class="content-area" style="text-align: center;">
+        <h1 style="font-size: 80px;">The Rock Sage Returns</h1>
+        <p style="font-size: 32px; font-style: italic; color: #d4af37;">Legendary Creature — Bard Wizard</p>
+    </div>
+    <div class="pt-box">2 / 3</div>
+</div>
 
-    <!-- LEGAL FOOTER -->
-    <footer class="legal-footer">
-        <p>™ & © 2026 Sarimoko Labs. All rights reserved.</p>
-        <p style="margin-top: 10px; opacity: 0.5;">Artist: Sarimoko // Collector Number: 001/001</p>
-    </footer>
+<div class="slide-container" id="slide2">
+    <div class="section-title-layout">
+        <h2 style="font-size: 64px;">Unveiling the Legend</h2>
+        <hr>
+        <p style="font-size: 24px;">An exploration of Sarimoko's multi-layered architecture and creative spells.</p>
+    </div>
+    <div class="holo-stamp"></div>
+</div>
+
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">Spell: Boto AI Evolution</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Custom Neural Engines</h3>
+                <p>Deploy advanced LLM instances with a single tap. Boto constructs non-hallucinatory pathways for complex data retrieval.</p>
+                <ul>
+                    <li>Dynamic Parameter Scaling</li>
+                    <li>Hexproof from Data Leaks</li>
+                    <li>Real-time Oracle Feedback</li>
+                </ul>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/17916194899478133093" alt="Tech Runes">
+            </div>
+        </div>
+    </div>
+    <div class="holo-stamp"></div>
+</div>
+
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Passive Abilities</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-code"></i></div>
+                <h3>Git Architecture</h3>
+                <p>Self-hosted repositories ensure total sovereignty. Search your deck for a source file and put it directly into play.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-shield-virus"></i></div>
+                <h3>The Honey-pot</h3>
+                <p>Unauthorized intrusion triggers the Rabbit Hole. Adversaries lose 5 life and exile their temporary files.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-user-group"></i></div>
+                <h3>Dude Socials</h3>
+                <p>Counter target mainstream algorithm. Status updates gain Haste and reach target audiences across the multiverse.</p>
+            </div>
+        </div>
+    </div>
+    <div class="pt-box">3 / 4</div>
+</div>
+
+<div class="slide-container bleed-image-layout" id="slide5">
+    <div class="bleed-text-side">
+        <h2 class="slide-title">Psychedelic Sage</h2>
+        <h3 style="color: #d4af37;">Transcending the Code</h3>
+        <p>In the second phase of development, Sarimoko taps into the ethereal realms of creativity. Here, logic meets the abstract.</p>
+        <p>This legendary state provides "Flash," allowing you to cast project updates at any time, catching competitors off-guard.</p>
+    </div>
+    <img class="bleed-image-side" src="http://googleusercontent.com/image_collection/image_retrieval/13831136716825692041" alt="Wizard Sage">
+</div>
+
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">System Mana Stats</h2>
+    <div class="content-area">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #d4af37; color: #111;">
+                    <th style="padding: 15px;">Project Component</th>
+                    <th>Resource Type</th>
+                    <th>Effect Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid rgba(212,175,55,0.3);">
+                    <td style="padding: 15px;">Boto Engine</td>
+                    <td>Artifact Mana</td>
+                    <td>Legendary</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(212,175,55,0.3);">
+                    <td style="padding: 15px;">Honey-pot Logic</td>
+                    <td>Dark Ritual</td>
+                    <td>Elite</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px;">Social Feed</td>
+                    <td>Wild Growth</td>
+                    <td>Global</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pt-box">4 / 4</div>
+</div>
+
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Mana Efficiency</h2>
+    <div class="content-area">
+        <div class="chart-container">
+            <div class="bar">
+                <div class="label">Boto AI</div>
+                <div class="bar-inner"><div class="bar-fill" style="width: 95%;"></div></div>
+            </div>
+            <div class="bar">
+                <div class="label">Self-Hosted Git</div>
+                <div class="bar-inner"><div class="bar-fill" style="width: 80%;"></div></div>
+            </div>
+            <div class="bar">
+                <div class="label">Honey-pot Security</div>
+                <div class="bar-inner"><div class="bar-fill" style="width: 88%;"></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="holo-stamp"></div>
+</div>
+
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Growth of the Realm</h2>
+    <div class="content-area">
+        <svg viewBox="0 0 1000 400" style="width: 100%; height: 300px;">
+            <path d="M0,350 L200,300 L400,320 L600,150 L800,100 L1000,50 L1000,400 L0,400 Z" fill="rgba(212,175,55,0.2)" stroke="#d4af37" stroke-width="4"/>
+            <text x="0" y="380" fill="#e0d8cb">Q1</text>
+            <text x="500" y="380" fill="#e0d8cb">Q3</text>
+            <text x="950" y="380" fill="#e0d8cb">Q4</text>
+        </svg>
+        <p style="text-align: center; margin-top: 20px;">Projected user expansion following the "Mythic" update.</p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">The Chronicle Timeline</h2>
+    <div class="content-area">
+        <div style="display: flex; justify-content: space-between; position: relative; width: 100%;">
+            <div style="height: 4px; background: #d4af37; width: 100%; position: absolute; top: 50%; z-index: 1;"></div>
+            <div style="z-index: 2; text-align: center;">
+                <div style="width: 20px; height: 20px; background: #fff; border-radius: 50%; margin: 0 auto 10px;"></div>
+                <h3>Alpha</h3>
+                <p>The Rock Sage</p>
+            </div>
+            <div style="z-index: 2; text-align: center;">
+                <div style="width: 20px; height: 20px; background: #fff; border-radius: 50%; margin: 0 auto 10px;"></div>
+                <h3>Beta</h3>
+                <p>The Psychedelic Sage</p>
+            </div>
+            <div style="z-index: 2; text-align: center;">
+                <div style="width: 20px; height: 20px; background: #fff; border-radius: 50%; margin: 0 auto 10px;"></div>
+                <h3>Launch</h3>
+                <p>The Masterpiece</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide10">
+    <div class="content-area" style="text-align: center;">
+        <blockquote style="font-size: 48px; font-family: 'Crimson Pro'; font-style: italic; line-height: 1.2;">
+            "We want rocks! We want rolls! The rhythm of the system is the only pulse that truly matters."
+        </blockquote>
+        <cite style="display: block; margin-top: 30px; font-size: 28px; color: #d4af37;">— Sarimoko, Rock Sage</cite>
+    </div>
+    <div class="holo-stamp"></div>
+</div>
+
+<div class="slide-container" id="slide11" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('http://googleusercontent.com/image_collection/image_retrieval/6286539902441664494'); background-size: cover;">
+    <div class="content-area" style="text-align: center;">
+        <h2 style="font-size: 72px;">Infinite Horizon</h2>
+        <p style="font-size: 28px; max-width: 800px; margin: 0 auto;">Beyond the binary code lies a cosmic masterpiece of potential. Sarimoko's vision extends into the far reaches of the digital nebula.</p>
+    </div>
+    <div class="pt-box">∞ / ∞</div>
+</div>
+
+<div class="slide-container" id="slide12">
+    <div class="nameplate">
+        <h2>Enter the Labyrinth</h2>
+        <div class="social-nav">
+            <a href="https://www.facebook.com/sarimoko.o"><div class="mana-icon fb"><i class="fa-brands fa-facebook-f"></i></div></a>
+            <a href="https://www.instagram.com/sari.moko/"><div class="mana-icon ig"><i class="fa-brands fa-instagram"></i></div></a>
+            <a href="https://www.tiktok.com/@sarimoko"><div class="mana-icon tt"><i class="fa-brands fa-tiktok"></i></div></a>
+            <a href="http://youtube.com/c/sarimoko"><div class="mana-icon yt"><i class="fa-brands fa-youtube"></i></div></a>
+            <div class="mana-icon star"><i class="fa-solid fa-star"></i></div>
+        </div>
+    </div>
+    <div class="content-area" style="text-align: center;">
+        <h1 style="color: #d4af37;">Questions for the Sage?</h1>
+        <p style="font-size: 24px; margin-top: 20px;">The architect is listening. Reach out across the social mana stream.</p>
+        <div style="margin-top: 50px;">
+            <p>sarimoko.com</p>
+            <p><a href="mailto:travis@sarimoko.com">travis@sarimoko.com</a></p>
+        </div>
+    </div>
+    <div class="holo-stamp"></div>
+</div>
 
 </body>
 </html>
+
