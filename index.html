@@ -1,88 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sarimoko — Travis Gene Reames</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background: radial-gradient(circle at top, #1b1d2b, #0a0a0f);
-      font-family: 'Cinzel', serif;
-    }
-    .card-frame {
-      background: linear-gradient(145deg, #d4af37, #a67c00);
-      border: 4px solid #3a2c00;
-      border-radius: 1rem;
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
-    }
-    .card-inner {
-      background: #fffef9;
-      border-radius: 0.75rem;
-      overflow: hidden;
-    }
-    .ability-box {
-      border: 2px solid #e5c100;
-      border-radius: 0.5rem;
-      background: #fff8e7;
-    }
-  </style>
-</head>
-<body class="flex items-center justify-center min-h-screen p-4">
-
-  <div class="card-frame max-w-md w-full">
-    <div class="card-inner p-4">
-
-      <!-- Top Navbar / Name + Elements -->
-      <header class="flex justify-between items-center border-b-2 border-yellow-600 pb-2">
-        <h1 class="text-2xl font-bold text-yellow-800">Sarimoko</h1>
-        <div class="flex gap-2">
-          <span class="px-2 py-1 bg-yellow-300 rounded text-sm font-semibold text-yellow-900">⚡ Electric</span>
-          <span class="px-2 py-1 bg-blue-300 rounded text-sm font-semibold text-blue-900">💧 Mystic</span>
-        </div>
-      </header>
-
-      <!-- Card Art -->
-      <section class="my-4">
-        <img src="https://images.unsplash.com/photo-1598387993441-5a3ddf1c5c4b?auto=format&fit=crop&w=800&q=80"
-             alt="Sarimoko Creature Art"
-             class="rounded-lg border-2 border-yellow-700 w-full object-cover shadow-lg">
-      </section>
-
-      <!-- Creature Type / Subtitle -->
-      <h2 class="text-center text-lg italic text-gray-600 mb-2">Digital Samurai • Legendary Entity</h2>
-
-      <!-- Abilities / Attacks -->
-      <section class="space-y-3">
-        <div class="ability-box p-3">
-          <h3 class="font-bold text-lg text-yellow-800">Katana Slash ⚔️</h3>
-          <p class="text-sm text-gray-700">Unleash a precise digital strike that cuts through noise and distortion. Deals double to unfocused energies.</p>
-        </div>
-
-        <div class="ability-box p-3">
-          <h3 class="font-bold text-lg text-yellow-800">Code Infusion 💻</h3>
-          <p class="text-sm text-gray-700">Transforms logic into light — enhances your network presence with amplified clarity and design precision.</p>
-        </div>
-
-        <div class="ability-box p-3">
-          <h3 class="font-bold text-lg text-yellow-800">Echo Resilience 🔮</h3>
-          <p class="text-sm text-gray-700">Absorbs digital feedback and converts chaos into growth. Recovers lost bandwidth or inspiration.</p>
-        </div>
-      </section>
-
-      <!-- Description -->
-      <section class="mt-4 text-center text-sm text-gray-600 italic">
-        “Forged in silence, sharpened through connection — Sarimoko strikes where code and creativity collide.”
-      </section>
-
-      <!-- Bottom Bar / Weaknesses + Trademark -->
-      <footer class="mt-4 border-t-2 border-yellow-600 pt-2 flex justify-between text-xs text-gray-700">
-        <span>Weakness: ⚔️ Doubt • 🌀 Burnout</span>
-        <span>© 2025 Sarimoko™</span>
-      </footer>
-
+<div class="mtg-card-container max-w-2xl mx-auto border-[12px] border-black rounded-[2rem] bg-[#1a1a1a] shadow-2xl overflow-hidden">
+  
+  <header class="relative h-96 bg-cover bg-center" style="background-image: url('art-placeholder.jpg');">
+    <div class="absolute top-4 right-4 bg-white/80 px-3 py-1 rounded-full font-bold">
+      ⚡️
     </div>
-  </div>
+  </header>
 
-</body>
-</html>
+  <nav id="nameplate" class="sticky top-0 z-50 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 border-y-2 border-black p-4 shadow-md flex justify-between items-center">
+    <h1 class="text-2xl font-serif font-bold italic">Sarimoko</h1>
+    <ul class="flex gap-4 font-semibold text-sm">
+      <li><a href="#projects">Abilities</a></li>
+      <li><a href="#lore">Lore</a></li>
+    </ul>
+  </nav>
+
+  <main class="p-6 bg-[#d9d4cc] min-h-[400px] text-gray-900">
+    <div class="italic text-sm mb-4 border-b border-black/20 pb-2">Legendary Developer — Human</div>
+
+    <section id="projects" class="space-y-4">
+      
+      <div class="project-ability group border-b border-black/10 pb-4">
+        <button onclick="toggleProject('boto')" class="flex items-center gap-2 w-full text-left">
+          <span class="bg-black text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">B</span>
+          <span class="font-bold uppercase tracking-tighter">Boto - Custom AI Models</span>
+        </button>
+        <div id="boto" class="hidden mt-2 pl-8 text-sm leading-relaxed">
+          Tap 2: Summon a custom-trained LLM. Boto gains +2/+2 for every dataset indexed this turn.
+        </div>
+      </div>
+
+      <div class="project-ability group border-b border-black/10 pb-4">
+        <button onclick="toggleProject('code')" class="flex items-center gap-2 w-full text-left">
+          <span class="bg-black text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">C</span>
+          <span class="font-bold uppercase tracking-tighter">Code - Self Hosted Git</span>
+        </button>
+        <div id="code" class="hidden mt-2 pl-8 text-sm leading-relaxed">
+          {T}: Create a 1/1 Repository token with "This token cannot be deleted by third-party platforms."
+        </div>
+      </div>
+
+      </section>
+  </main>
+
+  <footer id="lore" class="bg-[#d9d4cc] p-6 pt-0 border-t border-black/5">
+    <div class="italic text-sm text-gray-700 mt-4 border-t border-black/40 pt-4">
+      "In the depths of the honey-pot, only the curious find the truth. The rest find the trap."
+    </div>
+    
+    <div class="flex justify-between items-end mt-8 text-[10px] uppercase font-sans tracking-widest">
+      <div>1994-2026 Sarimoko.com</div>
+      <div class="font-bold text-lg">24 / 07</div>
+    </div>
+  </footer>
+</div>
