@@ -1,55 +1,292 @@
-<div class="mtg-card-container max-w-2xl mx-auto border-[12px] border-black rounded-[2rem] bg-[#1a1a1a] shadow-2xl overflow-hidden">
-  
-  <header class="relative h-96 bg-cover bg-center" style="background-image: url('art-placeholder.jpg');">
-    <div class="absolute top-4 right-4 bg-white/80 px-3 py-1 rounded-full font-bold">
-      ⚡️
-    </div>
-  </header>
 
-  <nav id="nameplate" class="sticky top-0 z-50 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 border-y-2 border-black p-4 shadow-md flex justify-between items-center">
-    <h1 class="text-2xl font-serif font-bold italic">Sarimoko</h1>
-    <ul class="flex gap-4 font-semibold text-sm">
-      <li><a href="#projects">Abilities</a></li>
-      <li><a href="#lore">Lore</a></li>
-    </ul>
-  </nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarimoko | Legendary Artifact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:italic,wght@400;600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --card-border: #171314;
+            --card-gold: #c3b070; /* Gold frame for legendary */
+            --card-bg: #e0d8cb;
+            --header-bg: linear-gradient(to bottom, #d1c1a1, #b5a483, #8e7a57);
+        }
 
-  <main class="p-6 bg-[#d9d4cc] min-h-[400px] text-gray-900">
-    <div class="italic text-sm mb-4 border-b border-black/20 pb-2">Legendary Developer — Human</div>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #000;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
 
-    <section id="projects" class="space-y-4">
-      
-      <div class="project-ability group border-b border-black/10 pb-4">
-        <button onclick="toggleProject('boto')" class="flex items-center gap-2 w-full text-left">
-          <span class="bg-black text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">B</span>
-          <span class="font-bold uppercase tracking-tighter">Boto - Custom AI Models</span>
-        </button>
-        <div id="boto" class="hidden mt-2 pl-8 text-sm leading-relaxed">
-          Tap 2: Summon a custom-trained LLM. Boto gains +2/+2 for every dataset indexed this turn.
+        /* FULLSCREEN CARD ART BACKGROUND */
+        .art-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+            z-index: -1;
+        }
+
+        /* OVERLAY GRADIENT TO BLEND ART INTO TEXT BOX */
+        .art-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8) 100%);
+            z-index: 0;
+        }
+
+        /* STICKY NAMEPLATE AT TOP */
+        .nameplate {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin: 20px auto;
+            width: 92%;
+            max-width: 1200px;
+            padding: 12px 24px;
+            background: var(--header-bg);
+            border: 3px solid #111;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 2px 2px rgba(255,255,255,0.4);
+        }
+
+        .nameplate h1 {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 2rem;
+            color: #111;
+            text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.3);
+        }
+
+        .mana-cost {
+            display: flex;
+            gap: 5px;
+        }
+
+        .mana-circle {
+            width: 30px;
+            height: 30px;
+            background: #ccc;
+            border-radius: 50%;
+            border: 2px solid #000;
+            box-shadow: 1px 2px 3px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* TYPE LINE (SCROLLS WITH CONTENT) */
+        .type-line {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40vh auto 0 auto; /* Push down to show art */
+            padding: 8px 20px;
+            background: var(--header-bg);
+            border: 2px solid #000;
+            border-radius: 4px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* TEXT BOX AREA */
+        .text-box {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto 50px auto;
+            background: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.3);
+            min-height: 500px;
+            padding: 40px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.4rem;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        .ability-row {
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 20px;
+        }
+
+        .ability-trigger {
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+
+        .ability-trigger:hover {
+            transform: translateX(10px);
+        }
+
+        .ability-content {
+            margin-top: 10px;
+            padding-left: 40px;
+            font-weight: 400;
+            display: none;
+        }
+
+        .ability-row.active .ability-content {
+            display: block;
+        }
+
+        .flavor-text {
+            margin-top: 50px;
+            font-style: italic;
+            border-top: 2px solid rgba(0,0,0,0.2);
+            padding-top: 20px;
+            color: #333;
+        }
+
+        /* FOOTER AREA */
+        .legal-footer {
+            width: 100%;
+            background: #000;
+            color: #999;
+            padding: 60px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .pt-box {
+            position: absolute;
+            bottom: -20px;
+            right: 40px;
+            background: var(--header-bg);
+            border: 3px solid #000;
+            padding: 10px 25px;
+            border-radius: 12px;
+            font-size: 2rem;
+            font-weight: 900;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .holo-stamp {
+            width: 60px;
+            height: 35px;
+            background: linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.6;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FULLSCREEN ART -->
+    <div class="art-background"></div>
+    <div class="art-overlay"></div>
+
+    <!-- THE NAMEPLATE (Menu) -->
+    <nav class="nameplate">
+        <h1>Sarimoko, The Infinite Architect</h1>
+        <div class="mana-cost">
+            <div class="mana-circle">7</div>
+            <div class="mana-circle" style="background:#2f5597; color:white">U</div>
+            <div class="mana-circle" style="background:#2e7d32; color:white">G</div>
+            <div class="mana-circle" style="background:#000; color:white">B</div>
         </div>
-      </div>
+    </nav>
 
-      <div class="project-ability group border-b border-black/10 pb-4">
-        <button onclick="toggleProject('code')" class="flex items-center gap-2 w-full text-left">
-          <span class="bg-black text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">C</span>
-          <span class="font-bold uppercase tracking-tighter">Code - Self Hosted Git</span>
-        </button>
-        <div id="code" class="hidden mt-2 pl-8 text-sm leading-relaxed">
-          {T}: Create a 1/1 Repository token with "This token cannot be deleted by third-party platforms."
+    <!-- CONTENT WRAPPER -->
+    <div class="relative">
+        
+        <div class="type-line">
+            Legendary Artifact — System Avatar
         </div>
-      </div>
 
-      </section>
-  </main>
+        <main class="text-box">
+            
+            <!-- BOTO -->
+            <div class="ability-row" onclick="this.classList.toggle('active')">
+                <div class="ability-trigger">
+                    <span class="mana-circle">AI</span>
+                    <span>Boto — Custom AI Models</span>
+                </div>
+                <div class="ability-content">
+                    {T}: Create a X/X colorless Neural Network creature token where X is the number of parameters provided. It gains "This creature cannot be hallucinated."
+                </div>
+            </div>
 
-  <footer id="lore" class="bg-[#d9d4cc] p-6 pt-0 border-t border-black/5">
-    <div class="italic text-sm text-gray-700 mt-4 border-t border-black/40 pt-4">
-      "In the depths of the honey-pot, only the curious find the truth. The rest find the trap."
+            <!-- CODE -->
+            <div class="ability-row" onclick="this.classList.toggle('active')">
+                <div class="ability-trigger">
+                    <span class="mana-circle">Git</span>
+                    <span>Code — Self-hosted Git</span>
+                </div>
+                <div class="ability-content">
+                    {3}, {T}: Counter target corporate dependency. Search your library for a repository card, put it onto the battlefield, then shuffle.
+                </div>
+            </div>
+
+            <!-- CULT -->
+            <div class="ability-row" onclick="this.classList.toggle('active')">
+                <div class="ability-trigger">
+                    <span class="mana-circle">💀</span>
+                    <span>Cult — The Honey-pot</span>
+                </div>
+                <div class="ability-content">
+                    When an unauthorized user enters the battlefield, they must follow the rabbit-hole. That player exiles their browser history and loses all credibility.
+                </div>
+            </div>
+
+            <!-- DUDE -->
+            <div class="ability-row" onclick="this.classList.toggle('active')">
+                <div class="ability-trigger">
+                    <span class="mana-circle">💬</span>
+                    <span>Dude — Social Media</span>
+                </div>
+                <div class="ability-content">
+                    Protection from "Main Character Syndrome." Whenever you post a thread, draw a card for each echo in the chamber.
+                </div>
+            </div>
+
+            <div class="flavor-text">
+                "The Soul of the Web has returned, not as a user, but as the foundation itself."
+            </div>
+
+            <div class="holo-stamp"></div>
+            
+            <div class="pt-box">10 / 10</div>
+        </main>
+
     </div>
-    
-    <div class="flex justify-between items-end mt-8 text-[10px] uppercase font-sans tracking-widest">
-      <div>1994-2026 Sarimoko.com</div>
-      <div class="font-bold text-lg">24 / 07</div>
-    </div>
-  </footer>
-</div>
+
+    <!-- LEGAL FOOTER -->
+    <footer class="legal-footer">
+        <p>™ & © 2026 Sarimoko Labs. All rights reserved.</p>
+        <p style="margin-top: 10px; opacity: 0.5;">Artist: Sarimoko // Collector Number: 001/001</p>
+    </footer>
+
+</body>
+</html>
